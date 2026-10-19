@@ -1,1388 +1,290 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="Morena Web Rádio — jazz online 24 horas."
-  >
-
-  <!-- Open Graph (WhatsApp, Facebook, etc.) -->
-  <meta property="og:title" content="Morena Web Rádio">
-  <meta property="og:description" content="A rádio que toca o melhor do pop global. Ouça ao vivo de qualquer lugar.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="pt_BR">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Morena Web Rádio">
-  <meta name="twitter:description" content="A rádio que toca o melhor do pop global.">
-
-  <title>Morena Web Rádio</title>
-
-  <!-- Google Fonts: Playfair Display (display/títulos) + Inter (corpo) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    /* =========================
-       RESET
-    ========================= */
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family:
-        'Inter',
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      color: #ffffff;
-
-      background:
-        radial-gradient(
-          circle at 20% 10%,
-          rgba(255, 0, 102, 0.18),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 80% 30%,
-          rgba(126, 0, 255, 0.18),
-          transparent 30%
-        ),
-        #08070b;
-
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-
-      width: 100%;
-
-      z-index: 1000;
-
-      background: rgba(8, 7, 11, 0.78);
-
-      backdrop-filter: blur(15px);
-
-      border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.08);
-    }
-
-    .navbar {
-      width: 90%;
-      max-width: 1200px;
-
-      margin: auto;
-
-      height: 75px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-
-    /* LOGO */
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      font-size: 24px;
-      font-weight: 900;
-
-      letter-spacing: -1px;
-    }
-
-    .logo-icon {
-      width: 42px;
-      height: 42px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 12px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ff0066,
-          #9d00ff
-        );
-
-      box-shadow:
-        0 0 25px
-        rgba(255, 0, 102, 0.35);
-
-      font-size: 21px;
-    }
-
-    .logo span {
-      color: #ff3b91;
-    }
-
-
-    /* MENU */
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
-
-    nav a {
-      color: #d7d7dc;
-
-      font-size: 14px;
-      font-weight: 600;
-
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #ff3b91;
-    }
-
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      min-height: 100vh;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding:
-        120px
-        20px
-        70px;
-
-      position: relative;
-    }
-
-    .hero::before {
-      content: "";
-
-      position: absolute;
-
-      width: 450px;
-      height: 450px;
-
-      border-radius: 50%;
-
-      background: #ff0066;
-
-      filter: blur(180px);
-
-      opacity: 0.13;
-
-      top: 15%;
-      left: -150px;
-
-      pointer-events: none;
-    }
-
-    .hero-content {
-      width: 100%;
-      max-width: 1100px;
-
-      display: grid;
-
-      grid-template-columns:
-        1fr
-        1fr;
-
-      gap: 60px;
-
-      align-items: center;
-    }
-
-
-    /* HERO TEXT */
-
-    .hero-text {
-      position: relative;
-      z-index: 2;
-    }
-
-    /* player-wrapper já herdará position via layout */
-
-    .live-badge {
-      display: inline-flex;
-
-      align-items: center;
-      gap: 8px;
-
-      padding:
-        9px
-        16px;
-
-      margin-bottom: 22px;
-
-      border-radius: 50px;
-
-      background:
-        rgba(255, 0, 102, 0.10);
-
-      border:
-        1px solid
-        rgba(255, 59, 145, 0.3);
-
-      color: #ff5aa5;
-
-      font-size: 13px;
-      font-weight: 800;
-
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .live-dot {
-      width: 9px;
-      height: 9px;
-
-      border-radius: 50%;
-
-      background: #ff176f;
-
-      box-shadow:
-        0 0 15px
-        #ff176f;
-
-      animation:
-        pulse 1.3s infinite;
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(0.6);
-        opacity: 0.45;
-      }
-
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', Georgia, serif;
-
-      font-size:
-        clamp(
-          45px,
-          6vw,
-          78px
-        );
-
-      line-height: 0.98;
-
-      letter-spacing: -2px;
-
-      margin-bottom: 25px;
-    }
-
-    .hero h1 span {
-      color: #ff3b91;
-
-      text-shadow:
-        0 0 40px
-        rgba(255, 59, 145, 0.35);
-    }
-
-    .hero-description {
-      max-width: 550px;
-
-      color: #aaa8b3;
-
-      font-size: 18px;
-
-      line-height: 1.7;
-
-      margin-bottom: 30px;
-    }
-
-
-    /* BUTTONS */
-
-    .buttons {
-      display: flex;
-      gap: 15px;
-
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-
-      align-items: center;
-      justify-content: center;
-
-      padding:
-        14px
-        23px;
-
-      border-radius: 50px;
-
-      font-size: 14px;
-      font-weight: 800;
-
-      transition: 0.3s;
-    }
-
-    .btn-primary {
-      background:
-        linear-gradient(
-          135deg,
-          #ff0066,
-          #9d00ff
-        );
-
-      box-shadow:
-        0 10px 35px
-        rgba(255, 0, 102, 0.25);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-
-      box-shadow:
-        0 15px 45px
-        rgba(255, 0, 102, 0.4);
-    }
-
-    .btn-secondary {
-      border:
-        1px solid
-        rgba(255,255,255,0.13);
-
-      background:
-        rgba(255,255,255,0.04);
-
-      color: #ddd;
-    }
-
-    .btn-secondary:hover {
-      background:
-        rgba(255,255,255,0.09);
-    }
-
-
-    /* =========================
-       PLAYER
-    ========================= */
-
-    .player-wrapper {
-      position: relative;
-
-      display: flex;
-      justify-content: center;
-
-      z-index: 2;
-    }
-
-    .player-card {
-      width: 100%;
-      max-width: 575px;
-
-      padding: 20px;
-
-      border-radius: 25px;
-
-      background:
-        rgba(255,255,255,0.055);
-
-      border:
-        1px solid
-        rgba(255,255,255,0.12);
-
-      box-shadow:
-        0 30px 90px
-        rgba(0,0,0,0.45);
-
-      backdrop-filter: blur(20px);
-    }
-
-    .player-title {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-
-      margin-bottom: 18px;
-    }
-
-    .radio-icon {
-      width: 48px;
-      height: 48px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 14px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ff0066,
-          #9d00ff
-        );
-
-      font-size: 23px;
-    }
-
-    .player-title h2 {
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
-
-    .player-title p {
-      font-size: 12px;
-      color: #92909b;
-    }
-
-    /* PLAYER ZENO */
-
-    .zeno-player {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 15px;
-    }
-
-    .zeno-player iframe {
-      display: block;
-
-      width: 100%;
-      max-width: 575px;
-
-      height: 250px;
-
-      border: 0;
-
-      border-radius: 15px;
-    }
-
-    .zeno-link {
-      display: block;
-
-      margin-top: 5px;
-
-      font-size: 11px;
-
-      line-height: 12px;
-
-      text-align: right;
-
-      color: #77747e;
-    }
-
-    .zeno-link:hover {
-      color: #ff3b91;
-    }
-
-
-    /* =========================
-       SECTIONS
-    ========================= */
-
-    section {
-      width: 90%;
-      max-width: 1100px;
-
-      margin: auto;
-
-      padding:
-        100px
-        0;
-    }
-
-    .section-heading {
-      text-align: center;
-
-      margin-bottom: 50px;
-    }
-
-    .section-heading span {
-      color: #ff3b91;
-    }
-
-    .section-heading h2 {
-      font-family: 'Playfair Display', Georgia, serif;
-
-      font-size: 40px;
-
-      margin-bottom: 12px;
-    }
-
-    .section-heading p {
-      color: #92909b;
-    }
-
-
-    /* =========================
-       PROGRAMMING
-    ========================= */
-
-    .schedule {
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          2,
-          1fr
-        );
-
-      gap: 15px;
-    }
-
-    .program {
-      display: flex;
-
-      justify-content: space-between;
-      align-items: center;
-
-      padding:
-        22px
-        25px;
-
-      border-radius: 16px;
-
-      background:
-        rgba(255,255,255,0.045);
-
-      border:
-        1px solid
-        rgba(255,255,255,0.08);
-
-      transition: 0.3s;
-    }
-
-    .program:hover {
-      transform: translateY(-3px);
-
-      border-color:
-        rgba(255,59,145,0.35);
-
-      background:
-        rgba(255,59,145,0.05);
-    }
-
-    .program-name {
-      font-weight: 800;
-    }
-
-    .program-time {
-      color: #ff579e;
-
-      font-size: 13px;
-
-      font-weight: 700;
-    }
-
-
-    /* =========================
-       ABOUT
-    ========================= */
-
-    .about {
-      max-width: 800px;
-
-      margin: auto;
-
-      text-align: center;
-
-      color: #aaa8b3;
-
-      line-height: 1.9;
-
-      font-size: 17px;
-    }
-
-
-    /* =========================
-       SOCIAL
-    ========================= */
-
-    .social {
-      display: flex;
-
-      justify-content: center;
-
-      flex-wrap: wrap;
-
-      gap: 12px;
-    }
-
-    .social a {
-      padding:
-        14px
-        22px;
-
-      border-radius: 50px;
-
-      background:
-        rgba(255,255,255,0.06);
-
-      border:
-        1px solid
-        rgba(255,255,255,0.09);
-
-      font-size: 14px;
-
-      transition: 0.3s;
-    }
-
-    .social a:hover {
-      background: #ff0066;
-
-      border-color: #ff0066;
-
-      transform: translateY(-3px);
-    }
-
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      padding:
-        30px
-        20px;
-
-      text-align: center;
-
-      color: #696772;
-
-      font-size: 13px;
-
-      border-top:
-        1px solid
-        rgba(255,255,255,0.07);
-    }
-
-
-    /* =========================
-       ANIMAÇÃO DE ENTRADA
-    ========================= */
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero-text {
-      animation: fadeUp 0.75s ease both;
-    }
-
-    .player-wrapper {
-      animation: fadeUp 0.75s 0.18s ease both;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero-text,
-      .player-wrapper {
-        animation: none;
-      }
-    }
-
-
-    /* =========================
-       MENU HAMBÚRGUER (MOBILE)
-    ========================= */
-
-    .menu-toggle {
-      display: none;
-
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-
-      width: 40px;
-      height: 40px;
-
-      background: none;
-      border: none;
-
-      cursor: pointer;
-
-      padding: 4px;
-
-      z-index: 1100;
-    }
-
-    .menu-toggle span {
-      display: block;
-
-      width: 22px;
-      height: 2px;
-
-      background: #ffffff;
-
-      border-radius: 2px;
-
-      transition: 0.3s;
-    }
-
-    .menu-toggle.open span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .menu-toggle.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.open span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    .nav-mobile {
-      display: none;
-
-      position: fixed;
-      top: 75px;
-      left: 0;
-
-      width: 100%;
-
-      background: rgba(8, 7, 11, 0.97);
-
-      backdrop-filter: blur(20px);
-
-      border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.08);
-
-      flex-direction: column;
-      align-items: center;
-
-      gap: 0;
-
-      z-index: 999;
-
-      padding: 10px 0 20px;
-    }
-
-    .nav-mobile.open {
-      display: flex;
-    }
-
-    .nav-mobile a {
-      width: 100%;
-
-      text-align: center;
-
-      padding: 16px 20px;
-
-      color: #d7d7dc;
-
-      font-size: 15px;
-      font-weight: 600;
-
-      transition: 0.2s;
-    }
-
-    .nav-mobile a:hover {
-      color: #ff3b91;
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 850px) {
-
-      nav {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      .hero {
-        padding-top: 120px;
-      }
-
-      .hero-content {
-        grid-template-columns: 1fr;
-
-        gap: 45px;
-
-        text-align: center;
-      }
-
-      .hero-description {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .buttons {
-        justify-content: center;
-      }
-
-      .player-wrapper {
-        width: 100%;
-      }
-
-      .schedule {
-        grid-template-columns: 1fr;
-      }
-    }
-
-
-    @media (max-width: 500px) {
-
-      .navbar {
-        width: 92%;
-      }
-
-      .logo {
-        font-size: 19px;
-      }
-
-      .logo-icon {
-        width: 37px;
-        height: 37px;
-      }
-
-      .hero h1 {
-        font-size: 48px;
-
-        letter-spacing: -2px;
-      }
-
-      .hero-description {
-        font-size: 16px;
-      }
-
-      section {
-        padding:
-          70px
-          0;
-      }
-
-      .section-heading h2 {
-        font-size: 32px;
-      }
-
-      .player-card {
-        padding: 12px;
-        border-radius: 20px;
-      }
-
-      .zeno-player iframe {
-        height: 250px;
-      }
-
-      .program {
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 8px;
-      }
-
-      .btn {
-        width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja do Evangelho Quadrangular | Padre Miguel - RJ | Região 784</title>
+    <meta name="description" content="Igreja do Evangelho Quadrangular de Padre Miguel - RJ | Região 784. Cultos, eventos, palavra, oração e informações da igreja.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph (pré-visualização em WhatsApp, Facebook etc.). Ajuste a URL do domínio real. -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="Igreja do Evangelho Quadrangular | Padre Miguel - RJ">
+    <meta property="og:description" content="Cultos, eventos, palavra e oração. Nossa casa está de portas abertas para você e sua família.">
+    <meta property="og:image" content="imagens/igreja-padre-miguel.jpg">
+
+    <link rel="icon" href="imagens/logo-quadrangular.png" type="image/png">
+    <link rel="preload" href="imagens/logo-quadrangular.png" as="image">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
-
-
 <body>
 
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-  <!-- =========================
-       HEADER
-  ========================= -->
-
-  <header>
-
-    <div class="navbar">
-
-      <a
-        href="#inicio"
-        class="logo"
-      >
-
-        <div class="logo-icon">
-          🎙️
-        </div>
-
-        Morena
-        <span>Web Rádio</span>
-
-      </a>
-
-
-      <nav aria-label="Menu principal">
-
-        <a href="#inicio">
-          Início
+<header class="header" id="inicio">
+    <div class="container nav">
+        <a class="brand" href="#inicio" aria-label="Igreja do Evangelho Quadrangular - página inicial">
+            <img src="imagens/logo-quadrangular.png" alt="" class="brand-logo" width="56" height="56">
+            <span class="brand-location">
+                <strong>Padre Miguel - RJ</strong>
+                <span>Região 784</span>
+            </span>
         </a>
 
-        <a href="#programacao">
-          Programação
-        </a>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+            <span aria-hidden="true">☰</span>
+        </button>
 
-        <a href="#sobre">
-          Sobre
-        </a>
-
-        <a href="#contato">
-          Contato
-        </a>
-
-      </nav>
-
-      <!-- Hambúrguer mobile -->
-      <button
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Abrir menu"
-        aria-expanded="false"
-        aria-controls="navMobile"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
+        <nav class="menu" id="menu" aria-label="Menu principal">
+            <a href="#inicio">Início</a>
+            <a href="#igreja">Nossa Igreja</a>
+            <a href="#programacao">Programação</a>
+            <a href="#eventos">Eventos</a>
+            <a href="#oracao">Oração</a>
+            <a href="#contato">Contato</a>
+        </nav>
     </div>
+</header>
 
-  </header>
+<main id="conteudo">
 
-  <!-- Nav mobile -->
-  <nav
-    class="nav-mobile"
-    id="navMobile"
-    aria-label="Menu mobile"
-  >
-    <a href="#inicio" class="nav-mobile-link">Início</a>
-    <a href="#programacao" class="nav-mobile-link">Programação</a>
-    <a href="#sobre" class="nav-mobile-link">Sobre</a>
-    <a href="#contato" class="nav-mobile-link">Contato</a>
-  </nav>
-
-
-
-  <!-- =========================
-       HERO
-  ========================= -->
-
-  <main>
-
-    <section
-      class="hero"
-      id="inicio"
-    >
-
-      <div class="hero-content">
-
-
-        <div class="hero-text">
-
-          <div class="live-badge">
-
-            <span class="live-dot"></span>
-
-            Rádio Online
-
-          </div>
-
-
-          <h1>
-
-            Morena<br>
-
-            <span>Web Rádio</span>
-
-          </h1>
-
-
-          <p class="hero-description">
-
-            A rádio que toca o melhor do pop global.
-            Ouça ao vivo de qualquer lugar.
-
-          </p>
-
-
-          <div class="buttons">
-
-            <a
-              href="#player"
-              class="btn btn-primary"
-            >
-              ▶ Ouvir ao vivo
-            </a>
-
-            <a
-              href="#programacao"
-              class="btn btn-secondary"
-            >
-              Ver programação
-            </a>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- PLAYER -->
-
-        <div
-          class="player-wrapper"
-          id="player"
-        >
-
-          <div class="player-card">
-
-
-            <div class="player-title">
-
-              <div class="radio-icon">
-                🎧
-              </div>
-
-              <div>
-
-                <h2>
-                  Morena Web Rádio
-                </h2>
-
-                <p>
-                  Estamos ao vivo para você
-                </p>
-
-              </div>
-
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero-content">
+            <span class="eyebrow">Região 784 • Padre Miguel - RJ</span>
+            <h1 id="hero-title">Um lugar para <span>encontrar Deus</span>, crescer na fé e viver em comunhão.</h1>
+            <p>Seja bem-vindo à Igreja do Evangelho Quadrangular de Padre Miguel. Nossa casa está de portas abertas para você e sua família.</p>
+            <div class="hero-buttons">
+                <a class="btn btn-primary" href="#programacao">Ver programação</a>
+                <a class="btn btn-light" href="#contato">Fale conosco</a>
             </div>
+        </div>
+    </section>
 
-
-            <!-- PLAYER ZENO.FM -->
-
-            <div class="zeno-player">
-
-              <iframe src="https://zeno.fm/player/morena-web-radio" width="575" height="250" frameborder="0" scrolling="no" title="Player Morena Web Rádio - Zeno.FM"></iframe>
-
-
-              <a
-                href="https://zeno.fm/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="zeno-link"
-              >
-                A Zeno.FM Station
-              </a>
-
+    <section class="welcome section" aria-labelledby="welcome-title">
+        <div class="container welcome-grid">
+            <div>
+                <span class="section-label">Seja bem-vindo</span>
+                <h2 id="welcome-title">Você é parte da nossa família.</h2>
+                <p>Queremos caminhar com você em uma jornada de fé, esperança e amor. Aqui você encontra cultos, momentos de oração, ensino da Palavra e comunhão.</p>
+                <a href="#igreja" class="text-link">Conheça nossa igreja →</a>
             </div>
-
-          </div>
-
+            <figure class="welcome-card">
+                <span class="card-icon" aria-hidden="true">✦</span>
+                <h3>Jesus transforma vidas</h3>
+                <blockquote>
+                    <p>“Eu vim para que tenham vida e a tenham em abundância.”</p>
+                </blockquote>
+                <figcaption>João 10:10</figcaption>
+            </figure>
         </div>
-
-      </div>
-
     </section>
 
-
-
-    <!-- =========================
-         PROGRAMAÇÃO
-    ========================= -->
-
-    <section id="programacao">
-
-      <div class="section-heading">
-
-        <h2>
-          Nossa <span>Programação</span>
-        </h2>
-
-        <p>
-          Confira alguns dos programas da Morena Web Rádio.
-        </p>
-
-      </div>
-
-
-      <div class="schedule">
-
-
-        <div class="program">
-
-          <div class="program-name">
-            ☀️ Bom Dia Morena
-          </div>
-
-          <div class="program-time">
-            06:00 — 09:00
-          </div>
-
+    <section class="quadrangular section" aria-labelledby="faith-title">
+        <div class="container">
+            <div class="section-heading">
+                <span class="section-label">Nossa fé</span>
+                <h2 id="faith-title">Uma igreja, quatro ênfases</h2>
+                <p>Conheça os símbolos tradicionalmente associados à mensagem Quadrangular.</p>
+            </div>
+            <div class="faith-grid">
+                <article>
+                    <div class="faith-icon" aria-hidden="true">✝</div>
+                    <h3>Jesus Salvador</h3>
+                    <p>Jesus Cristo é o nosso Salvador.</p>
+                </article>
+                <article>
+                    <div class="faith-icon" aria-hidden="true">❤</div>
+                    <h3>Jesus Batizador</h3>
+                    <p>Vivemos uma vida cheia do Espírito Santo.</p>
+                </article>
+                <article>
+                    <div class="faith-icon" aria-hidden="true">✦</div>
+                    <h3>Jesus Médico</h3>
+                    <p>Cremos no cuidado e na ação de Deus.</p>
+                </article>
+                <article>
+                    <div class="faith-icon" aria-hidden="true">👑</div>
+                    <h3>Jesus Rei</h3>
+                    <p>Esperamos a volta de Cristo e seu Reino.</p>
+                </article>
+            </div>
         </div>
-
-
-        <div class="program">
-
-          <div class="program-name">
-            🎵 Manhã Musical
-          </div>
-
-          <div class="program-time">
-            09:00 — 12:00
-          </div>
-
-        </div>
-
-
-        <div class="program">
-
-          <div class="program-name">
-            🎙️ Conexão Morena
-          </div>
-
-          <div class="program-time">
-            12:00 — 14:00
-          </div>
-
-        </div>
-
-
-        <div class="program">
-
-          <div class="program-name">
-            🔥 Tarde de Hits
-          </div>
-
-          <div class="program-time">
-            14:00 — 18:00
-          </div>
-
-        </div>
-
-
-        <div class="program">
-
-          <div class="program-name">
-            🌙 Morena Night
-          </div>
-
-          <div class="program-time">
-            18:00 — 22:00
-          </div>
-
-        </div>
-
-
-        <div class="program">
-
-          <div class="program-name">
-            🎧 Madrugada Morena
-          </div>
-
-          <div class="program-time">
-            22:00 — 06:00
-          </div>
-
-        </div>
-
-      </div>
-
     </section>
 
-
-
-    <!-- =========================
-         SOBRE
-    ========================= -->
-
-    <section id="sobre">
-
-      <div class="section-heading">
-
-        <h2>
-          Sobre a <span>Morena</span>
-        </h2>
-
-      </div>
-
-
-      <div class="about">
-
-        <p>
-
-          A Morena Web Rádio foi criada para levar
-          música de qualidade até você.
-          Nossa programação foi pensada para acompanhar
-          seus melhores momentos durante o dia.
-
-          <br><br>
-
-          Coloque seus fones, aumente o volume e
-          venha curtir a Morena Web Rádio.
-
-        </p>
-
-      </div>
-
+    <section class="about section" id="igreja" aria-labelledby="about-title">
+        <div class="container about-grid">
+            <div class="about-photo">
+                <img
+                    src="imagens/igreja-padre-miguel.jpg"
+                    alt="Fachada da Igreja do Evangelho Quadrangular de Padre Miguel"
+                    class="church-photo"
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async">
+            </div>
+            <div class="about-text">
+                <span class="section-label">Nossa igreja</span>
+                <h2 id="about-title">Uma comunidade que acolhe, ensina e serve.</h2>
+                <p>A Igreja do Evangelho Quadrangular de Padre Miguel faz parte da Região 784 e busca anunciar o Evangelho, fortalecer famílias e servir à comunidade.</p>
+                <p>A igreja é pastoreada por <strong>Pastor Silvio Fernandes</strong>.</p>
+                <ul class="mini-stats">
+                    <li><strong>784</strong><span>Região</span></li>
+                    <li><strong>RJ</strong><span>Padre Miguel</span></li>
+                    <li><strong>19h</strong><span>Quintas e Domingos</span></li>
+                </ul>
+            </div>
+        </div>
     </section>
 
-
-
-    <!-- =========================
-         CONTATO
-    ========================= -->
-
-    <section id="contato">
-
-      <div class="section-heading">
-
-        <h2>
-          Siga a <span>Morena</span>
-        </h2>
-
-        <p>
-          Acompanhe nossas redes sociais.
-        </p>
-
-      </div>
-
-
-      <div class="social">
-
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Morena Web Rádio no Instagram"
-        >
-          📸 Instagram
-        </a>
-
-
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Morena Web Rádio no Facebook"
-        >
-          👍 Facebook
-        </a>
-
-
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Morena Web Rádio no WhatsApp"
-        >
-          💬 WhatsApp
-        </a>
-
-
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Morena Web Rádio no YouTube"
-        >
-          ▶ YouTube
-        </a>
-
-      </div>
-
+    <section class="schedule section" id="programacao" aria-labelledby="schedule-title">
+        <div class="container">
+            <div class="section-heading">
+                <span class="section-label">Programação</span>
+                <h2 id="schedule-title">Participe dos nossos encontros</h2>
+            </div>
+            <div class="schedule-grid">
+                <article class="schedule-card">
+                    <span class="day">Quinta-feira</span>
+                    <h3>Culto de Celebração</h3>
+                    <strong><time datetime="19:00">19:00</time></strong>
+                    <p>Louvor • Palavra • Comunhão</p>
+                </article>
+                <article class="schedule-card">
+                    <span class="day">Domingo</span>
+                    <h3>Culto de Celebração</h3>
+                    <strong><time datetime="19:00">19:00</time></strong>
+                    <p>Louvor • Palavra • Comunhão</p>
+                </article>
+                <article class="schedule-card">
+                    <span class="day">Liderança</span>
+                    <h3>Pastor Silvio Fernandes</h3>
+                    <strong>IEQ</strong>
+                    <p>Pastor responsável pela igreja</p>
+                </article>
+            </div>
+        </div>
     </section>
 
-  </main>
+    <section class="events section" id="eventos" aria-labelledby="events-title">
+        <div class="container">
+            <div class="section-heading">
+                <span class="section-label">Eventos</span>
+                <h2 id="events-title">Próximos eventos</h2>
+            </div>
+            <div class="event-grid">
+                <!-- Duplique este bloco para cada evento. Troque .event-image por <img> quando houver arte. -->
+                <article class="event-card">
+                    <div class="event-image" aria-hidden="true">EVENTO</div>
+                    <div class="event-body">
+                        <span>Data do evento</span>
+                        <h3>Nome do evento</h3>
+                        <p>Inclua aqui uma breve descrição do evento.</p>
+                    </div>
+                </article>
+                <article class="event-card">
+                    <div class="event-image" aria-hidden="true">EVENTO</div>
+                    <div class="event-body">
+                        <span>Data do evento</span>
+                        <h3>Nome do evento</h3>
+                        <p>Inclua aqui uma breve descrição do evento.</p>
+                    </div>
+                </article>
+                <article class="event-card">
+                    <div class="event-image" aria-hidden="true">EVENTO</div>
+                    <div class="event-body">
+                        <span>Data do evento</span>
+                        <h3>Nome do evento</h3>
+                        <p>Inclua aqui uma breve descrição do evento.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
 
+    <section class="prayer section" id="oracao" aria-labelledby="prayer-title">
+        <div class="container prayer-grid">
+            <div>
+                <span class="section-label">Pedido de oração</span>
+                <h2 id="prayer-title">Queremos orar por você.</h2>
+                <p>Envie seu pedido de oração e nossa equipe estará intercedendo por você.</p>
+            </div>
+            <form class="prayer-form" id="prayerForm" novalidate>
+                <label for="nome">Seu nome</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" autocomplete="name" maxlength="80" required>
 
+                <label for="pedido">Pedido de oração</label>
+                <textarea id="pedido" name="pedido" rows="5" placeholder="Escreva seu pedido..." maxlength="1000" required></textarea>
 
-  <!-- =========================
-       FOOTER
-  ========================= -->
+                <button class="btn btn-primary" type="submit">Enviar pedido</button>
+                <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+            </form>
+        </div>
+    </section>
 
-  <footer>
+    <section class="contact section" id="contato" aria-labelledby="contact-title">
+        <div class="container">
+            <div class="section-heading">
+                <span class="section-label">Contato</span>
+                <h2 id="contact-title">Venha nos visitar</h2>
+            </div>
+            <div class="contact-grid">
+                <article class="contact-card">
+                    <span class="card-icon" aria-hidden="true">📍</span>
+                    <h3>Endereço</h3>
+                    <address>
+                        Rua Olímpia Esteves, 1592<br>
+                        Padre Miguel, Rio de Janeiro - RJ<br>
+                        <strong>CEP 21775-003</strong>
+                    </address>
+                    <a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Olimpia+Esteves+1592+Padre+Miguel+Rio+de+Janeiro+RJ+21775-003" target="_blank" rel="noopener noreferrer">Ver no mapa →</a>
+                </article>
 
-    © 2026 Morena Web Rádio.
-    Todos os direitos reservados.
+                <article class="contact-card">
+                    <span class="card-icon" aria-hidden="true">👤</span>
+                    <h3>Pastor</h3>
+                    <p><strong>Silvio Fernandes</strong></p>
+                    <p>Pastor responsável pela igreja.</p>
+                </article>
 
-  </footer>
+                <!-- Preencha os links reais. Enquanto o data-href estiver vazio, o script oculta o card. -->
+                <article class="contact-card" data-social data-href="">
+                    <span class="card-icon" aria-hidden="true">▶</span>
+                    <h3>YouTube</h3>
+                    <p>Cultos, mensagens e conteúdos.</p>
+                    <a class="text-link" href="#" target="_blank" rel="noopener noreferrer">Acessar canal →</a>
+                </article>
 
+                <article class="contact-card" data-social data-href="">
+                    <span class="card-icon" aria-hidden="true">◎</span>
+                    <h3>Instagram</h3>
+                    <p>Acompanhe nossa programação.</p>
+                    <a class="text-link" href="#" target="_blank" rel="noopener noreferrer">Acessar Instagram →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
 
-  <script>
-    const toggle = document.getElementById('menuToggle');
-    const navMobile = document.getElementById('navMobile');
+<footer class="footer">
+    <div class="container footer-content">
+        <div>
+            <strong>Igreja do Evangelho Quadrangular</strong>
+            <p>Padre Miguel - RJ | Região 784</p>
+        </div>
+        <p>© <span id="year">2026</span> Todos os direitos reservados.</p>
+    </div>
+</footer>
 
-    toggle.addEventListener('click', () => {
-      const isOpen = navMobile.classList.toggle('open');
-      toggle.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', isOpen);
-      toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
-    });
+<!-- Definido via script.js (CONFIG.whatsapp). Sem número configurado, o botão é removido. -->
+<a class="whatsapp" id="whatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp" hidden>
+    <span aria-hidden="true">☏</span>
+</a>
 
-    // Fechar menu ao clicar em um link
-    document.querySelectorAll('.nav-mobile-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navMobile.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Abrir menu');
-      });
-    });
-  </script>
-
+<noscript>
+    <style>.menu-toggle{display:none}.menu{display:flex!important;position:static!important}</style>
+</noscript>
 </body>
 </html>
