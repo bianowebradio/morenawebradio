@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Morena Web Rádio | Ouça ao vivo o melhor do pop global</title>
+  <meta name="description" content="Morena Web Rádio: o melhor do pop global no ar 24 horas. Ouça ao vivo de qualquer lugar, direto no navegador.">
+  <meta name="theme-color" content="#08070b">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Favicon embutido (evita o 404 de /favicon.ico). Substitua por um arquivo .png/.svg próprio quando tiver o logo. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎙️%3C/text%3E%3C/svg%3E">
+
+  <!-- TODO: descomente e ajuste com a URL real do site (usuario.github.io/repositorio/ ou domínio próprio)
+  <link rel="canonical" href="https://SEU-ENDERECO/">
+  <meta property="og:url" content="https://SEU-ENDERECO/">
+  -->
+
+  <!-- Open Graph (WhatsApp, Facebook, etc.) -->
+  <meta property="og:title" content="Morena Web Rádio">
+  <meta property="og:description" content="A rádio que toca o melhor do pop global. Ouça ao vivo de qualquer lugar.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Morena Web Rádio">
+  <!-- TODO: imagem 1200x630 (URL absoluta). Sem ela, o WhatsApp mostra o link sem pré-visualização visual.
+  <meta property="og:image" content="https://SEU-ENDERECO/og-image.jpg">
+  -->
+
+  <!-- Twitter Card (trocar para summary_large_image quando houver og:image) -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Morena Web Rádio">
+  <meta name="twitter:description" content="A rádio que toca o melhor do pop global.">
+
+  <!-- Conexões antecipadas: fontes e player -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://zeno.fm">
+
+  <!-- Fontes: Playfair Display 700 (títulos) + Inter variável 400–800 (corpo). Um arquivo por família. -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400..800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET / BASE ===== */
+    *{margin:0;padding:0;box-sizing:border-box}
+
+    html{scroll-padding-top:90px}
+    @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+    body{
+      font-family:'Inter',Arial,Helvetica,sans-serif;
+      color:#fff;
+      background:
+        radial-gradient(circle at 20% 10%,rgba(255,0,102,.18),transparent 30%),
+        radial-gradient(circle at 80% 30%,rgba(126,0,255,.18),transparent 30%),
+        #08070b;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    :focus-visible{outline:2px solid #ff3b91;outline-offset:3px}
+
+
+    /* ===== HEADER ===== */
+    header{
+      position:fixed;top:0;left:0;width:100%;
+      z-index:1000;
+      background:rgba(8,7,11,.78);
+      -webkit-backdrop-filter:blur(15px);
+      backdrop-filter:blur(15px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .navbar{
+      width:90%;max-width:1200px;height:75px;margin:auto;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+
+    .logo{
+      display:flex;align-items:center;gap:10px;
+      font-size:24px;font-weight:800;letter-spacing:-1px;
+    }
+
+    .logo-icon{
+      width:42px;height:42px;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:12px;
+      background:linear-gradient(135deg,#ff0066,#9d00ff);
+      box-shadow:0 0 25px rgba(255,0,102,.35);
+      font-size:21px;
+    }
+
+    .logo span{color:#ff3b91}
+
+    .nav{display:flex;align-items:center;gap:30px}
+
+    .nav a{
+      color:#d7d7dc;
+      font-size:14px;font-weight:600;
+      transition:color .3s;
+    }
+
+    .nav a:hover{color:#ff3b91}
+
+
+    /* ===== MENU HAMBÚRGUER ===== */
+    .menu-toggle{
+      display:none;
+      flex-direction:column;justify-content:center;gap:5px;
+      width:40px;height:40px;padding:4px;
+      background:none;border:none;cursor:pointer;
+    }
+
+    .menu-toggle span{
+      display:block;width:22px;height:2px;
+      background:#fff;border-radius:2px;
+      transition:transform .3s,opacity .3s;
+    }
+
+    .menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .menu-toggle.open span:nth-child(2){opacity:0}
+    .menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+
+    /* ===== HERO ===== */
+    .hero{
+      min-height:100vh;
+      min-height:100svh;
+      display:flex;align-items:center;justify-content:center;
+      padding:120px 20px 70px;
+      position:relative;
+    }
+
+    /* Brilho de fundo: gradiente radial no lugar de filter:blur(180px), que é caro em GPU móvel */
+    .hero::before{
+      content:"";
+      position:absolute;
+      top:calc(15% - 125px);left:-275px;
+      width:700px;height:700px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(255,0,102,.16),transparent 65%);
+      pointer-events:none;
+    }
+
+    .hero-content{
+      width:100%;max-width:1100px;
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:60px;align-items:center;
+    }
+
+    .hero-text{position:relative;z-index:2}
+
+    .live-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 16px;margin-bottom:22px;
+      border-radius:50px;
+      background:rgba(255,0,102,.10);
+      border:1px solid rgba(255,59,145,.3);
+      color:#ff5aa5;
+      font-size:13px;font-weight:800;
+      text-transform:uppercase;letter-spacing:1px;
+    }
+
+    .live-dot{
+      width:9px;height:9px;border-radius:50%;
+      background:#ff176f;
+      box-shadow:0 0 15px #ff176f;
+      animation:pulse 1.3s infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1);opacity:1}
+      50%{transform:scale(.6);opacity:.45}
+    }
+
+    .hero h1{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(45px,6vw,78px);
+      line-height:.98;letter-spacing:-2px;
+      margin-bottom:25px;
+    }
+
+    .hero h1 span{
+      color:#ff3b91;
+      text-shadow:0 0 40px rgba(255,59,145,.35);
+    }
+
+    .hero-description{
+      max-width:550px;
+      color:#aaa8b3;
+      font-size:18px;line-height:1.7;
+      margin-bottom:30px;
+    }
+
+
+    /* ===== BOTÕES ===== */
+    .buttons{display:flex;gap:15px;flex-wrap:wrap}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:6px;
+      padding:14px 23px;
+      border-radius:50px;
+      font-size:14px;font-weight:800;
+      transition:transform .3s,box-shadow .3s,background .3s;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,#ff0066,#9d00ff);
+      box-shadow:0 10px 35px rgba(255,0,102,.25);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-3px);
+      box-shadow:0 15px 45px rgba(255,0,102,.4);
+    }
+
+    .btn-secondary{
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(255,255,255,.04);
+      color:#ddd;
+    }
+
+    .btn-secondary:hover{background:rgba(255,255,255,.09)}
+
+
+    /* ===== PLAYER ===== */
+    .player-wrapper{
+      position:relative;z-index:2;
+      display:flex;justify-content:center;
+    }
+
+    .player-card{
+      width:100%;max-width:575px;padding:20px;
+      border-radius:25px;
+      background:rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 30px 90px rgba(0,0,0,.45);
+    }
+
+    .player-title{
+      display:flex;align-items:center;gap:13px;
+      margin-bottom:18px;
+    }
+
+    .radio-icon{
+      width:48px;height:48px;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ff0066,#9d00ff);
+      font-size:23px;
+    }
+
+    .player-title h2{font-size:18px;margin-bottom:4px}
+    .player-title p{font-size:12px;color:#92909b}
+
+    .zeno-player{width:100%;overflow:hidden;border-radius:15px}
+
+    .zeno-player iframe{
+      display:block;
+      width:100%;max-width:575px;height:250px;
+      border:0;border-radius:15px;
+    }
+
+    .zeno-link{
+      display:block;margin-top:5px;
+      font-size:11px;line-height:12px;text-align:right;
+      color:#8a8794;
+      transition:color .3s;
+    }
+
+    .zeno-link:hover{color:#ff3b91}
+
+
+    /* ===== SEÇÕES ===== */
+    section{
+      width:90%;max-width:1100px;
+      margin:auto;padding:100px 0;
+    }
+
+    .section-heading{text-align:center;margin-bottom:50px}
+    .section-heading span{color:#ff3b91}
+
+    .section-heading h2{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:40px;margin-bottom:12px;
+    }
+
+    .section-heading p{color:#92909b}
+
+
+    /* ===== PROGRAMAÇÃO ===== */
+    .schedule{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+
+    .program{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:22px 25px;
+      border-radius:16px;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.08);
+      transition:transform .3s,border-color .3s,background .3s;
+    }
+
+    .program:hover{
+      transform:translateY(-3px);
+      border-color:rgba(255,59,145,.35);
+      background:rgba(255,59,145,.05);
+    }
+
+    .program-name{font-weight:800}
+
+    .program-time{color:#ff579e;font-size:13px;font-weight:600}
+
+
+    /* ===== SOBRE ===== */
+    .about{
+      max-width:800px;margin:auto;
+      text-align:center;color:#aaa8b3;
+      line-height:1.9;font-size:17px;
+    }
+
+
+    /* ===== REDES SOCIAIS ===== */
+    .social{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+
+    .social a{
+      padding:14px 22px;
+      border-radius:50px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.09);
+      font-size:14px;
+      transition:transform .3s,background .3s,border-color .3s;
+    }
+
+    .social a:hover{
+      background:#ff0066;border-color:#ff0066;
+      transform:translateY(-3px);
+    }
+
+
+    /* ===== FOOTER ===== */
+    footer{
+      padding:30px 20px;
+      text-align:center;
+      color:#8a8794;font-size:13px;
+      border-top:1px solid rgba(255,255,255,.07);
+    }
+
+
+    /* ===== ANIMAÇÃO DE ENTRADA =====
+       Apenas transform: animar opacity a partir de 0 atrasa o LCP (o h1 fica invisível durante a animação). */
+    @keyframes fadeUp{
+      from{transform:translateY(16px)}
+      to{transform:none}
+    }
+
+    .hero-text{animation:fadeUp .5s ease both}
+    .player-wrapper{animation:fadeUp .5s .1s ease both}
+
+    @media (prefers-reduced-motion:reduce){
+      .hero-text,.player-wrapper,.live-dot{animation:none}
+      *{transition:none!important}
+    }
+
+
+    /* ===== MOBILE ===== */
+    @media (max-width:850px){
+      .menu-toggle{display:flex}
+
+      .nav{
+        display:none;
+        position:absolute;top:100%;left:0;width:100%;
+        flex-direction:column;gap:0;
+        padding:10px 0 20px;
+        background:rgba(8,7,11,.97);
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+
+      .nav.open{display:flex}
+
+      .nav a{width:100%;padding:16px 20px;text-align:center;font-size:15px}
+
+      .hero-content{grid-template-columns:1fr;gap:45px;text-align:center}
+      .hero-description{margin-left:auto;margin-right:auto}
+      .buttons{justify-content:center}
+      .schedule{grid-template-columns:1fr}
+    }
+
+    @media (max-width:500px){
+      .navbar{width:92%}
+      .logo{font-size:19px}
+      .logo-icon{width:37px;height:37px}
+
+      .hero h1{font-size:48px}
+      .hero-description{font-size:16px}
+
+      section{padding:70px 0}
+      .section-heading h2{font-size:32px}
+
+      .player-card{padding:12px;border-radius:20px}
+
+      .program{flex-direction:column;align-items:flex-start;gap:8px}
+
+      .btn{width:100%}
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="navbar">
+
+      <a href="#inicio" class="logo">
+        <div class="logo-icon" aria-hidden="true">🎙️</div>
+        Morena
+        <span>Web Rádio</span>
+      </a>
+
+      <nav class="nav" id="menu" aria-label="Menu principal">
+        <a href="#inicio">Início</a>
+        <a href="#programacao">Programação</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+
+        <div class="hero-text">
+
+          <div class="live-badge">
+            <span class="live-dot" aria-hidden="true"></span>
+            Rádio Online
+          </div>
+
+          <h1>
+            Morena<br>
+            <span>Web Rádio</span>
+          </h1>
+
+          <p class="hero-description">
+            A rádio que toca o melhor do pop global.
+            Ouça ao vivo de qualquer lugar.
+          </p>
+
+          <div class="buttons">
+            <a href="#player" class="btn btn-primary"><span aria-hidden="true">▶</span> Ouvir ao vivo</a>
+            <a href="#programacao" class="btn btn-secondary">Ver programação</a>
+          </div>
+
+        </div>
+
+
+        <!-- PLAYER -->
+        <div class="player-wrapper" id="player">
+          <div class="player-card">
+
+            <div class="player-title">
+              <div class="radio-icon" aria-hidden="true">🎧</div>
+              <div>
+                <h2>Morena Web Rádio</h2>
+                <p>Estamos ao vivo para você</p>
+              </div>
+            </div>
+
+            <div class="zeno-player">
+              <iframe
+                src="https://zeno.fm/player/morena-web-radio"
+                width="575"
+                height="250"
+                loading="lazy"
+                title="Player Morena Web Rádio - Zeno.FM"
+              ></iframe>
+
+              <a
+                href="https://zeno.fm/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="zeno-link"
+              >A Zeno.FM Station</a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ===== PROGRAMAÇÃO ===== -->
+    <section id="programacao">
+
+      <div class="section-heading">
+        <h2>Nossa <span>Programação</span></h2>
+        <p>Confira alguns dos programas da Morena Web Rádio.</p>
+      </div>
+
+      <div class="schedule">
+
+        <div class="program">
+          <div class="program-name"><span aria-hidden="true">☀️</span> Bom Dia Morena</div>
+          <div class="program-time">06:00 — 09:00</div>
+        </div>
+
+        <div class="program">
+          <div class="program-name"><span aria-hidden="true">🎵</span> Manhã Musical</div>
+          <div class="program-time">09:00 — 12:00</div>
+        </div>
+
+        <div class="program">
+          <div class="program-name"><span aria-hidden="true">🎙️</span> Conexão Morena</div>
+          <div class="program-time">12:00 — 14:00</div>
+        </div>
+
+        <div class="program">
+          <div class="program-name"><span aria-hidden="true">🔥</span> Tarde de Hits</div>
+          <div class="program-time">14:00 — 18:00</div>
+        </div>
+
+        <div class="program">
+          <div class="program-name"><span aria-hidden="true">🌙</span> Morena Night</div>
+          <div class="program-time">18:00 — 22:00</div>
+        </div>
+
+        <div class="program">
+          <div class="program-name"><span aria-hidden="true">🎧</span> Madrugada Morena</div>
+          <div class="program-time">22:00 — 06:00</div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===== SOBRE ===== -->
+    <section id="sobre">
+
+      <div class="section-heading">
+        <h2>Sobre a <span>Morena</span></h2>
+      </div>
+
+      <div class="about">
+        <p>
+          A Morena Web Rádio foi criada para levar
+          música de qualidade até você.
+          Nossa programação foi pensada para acompanhar
+          seus melhores momentos durante o dia.
+          <br><br>
+          Coloque seus fones, aumente o volume e
+          venha curtir a Morena Web Rádio.
+        </p>
+      </div>
+
+    </section>
+
+
+    <!-- ===== CONTATO =====
+         TODO: substituir cada href="#" pela URL real do perfil. Com "#", o clique abre uma nova aba da própria página. -->
+    <section id="contato">
+
+      <div class="section-heading">
+        <h2>Siga a <span>Morena</span></h2>
+        <p>Acompanhe nossas redes sociais.</p>
+      </div>
+
+      <div class="social">
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Morena Web Rádio no Instagram">📸 Instagram</a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Morena Web Rádio no Facebook">👍 Facebook</a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Morena Web Rádio no WhatsApp">💬 WhatsApp</a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Morena Web Rádio no YouTube">▶ YouTube</a>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    © 2026 Morena Web Rádio. Todos os direitos reservados.
+  </footer>
+
+
+  <script>
+    (() => {
+      const toggle = document.getElementById('menuToggle');
+      const menu = document.getElementById('menu');
+
+      const setOpen = (open) => {
+        menu.classList.toggle('open', open);
+        toggle.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      };
+
+      toggle.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
+
+      // Fecha ao clicar em qualquer link do menu
+      menu.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+
+      // Fecha com Esc e ao voltar para a largura desktop
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+      window.matchMedia('(min-width:851px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+    })();
+  </script>
+
+</body>
+</html>
